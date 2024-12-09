@@ -50,7 +50,7 @@ struct rational {
 
     friend ostream& operator<<(ostream& os, const rational& va)
     {
-        os << "(" << va.y << " / " << va.x << ")";
+        os << "(" << va.x << ", " << va.y << ")";
         return os;
     }
 
