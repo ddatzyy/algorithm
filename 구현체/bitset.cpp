@@ -16,9 +16,9 @@ struct dynamic_bitset {
 
         operator bool() const { return (bt.arr[idx / 64] >> (idx % 64)) & 1; }
 
-        proxy_bit& operator=(bool val)
+        proxy_bit& operator=(bool va)
         {
-            if (val)
+            if (va)
                 bt.set(idx);
             else
                 bt.reset(idx);
