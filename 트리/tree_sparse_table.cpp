@@ -49,17 +49,10 @@ struct tree_sparse_table {  // 1-based tree
     int go_up_distance(int lo, cost_t va)
     {
         assert(root > 0);
-        int st, en, md;
-        st = 0, en = dep[lo] - dep[root] + 1;
-        while (st + 1 < en) {
-            md = (st + en) >> 1;
-            auto ne = go_up_index(lo, md);
-            if (dst[lo] - dst[ne] > va)
-                en = md;
-            else
-                st = md;
-        }
-        return go_up_index(lo, st);
+        for (int i = sp - 1; i >= 0; i--)
+            if (dst[lo] - dst[spt[lo][i]] <= va)
+                va -= dst[lo] - dst[spt[lo][i]], lo = spt[lo][i];
+        return lo;
     }
     void update()
     {
