@@ -1,13 +1,13 @@
+namespace time_converter {
+
 // 0000-01-01 = day 1
-namespace date_converter {
-bool leap_year = true;
 int one_year = 365;
 // 0 : not leap year, 1 : leap year
+bool leap_year = true;
 vector<vector<int>> month({{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
                            {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}});
 vector<vector<int>> month_sum({{0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365},
                                {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366}});
-
 bool is_leap(int y)
 {
     assert(y >= 0);
@@ -56,4 +56,17 @@ array<int, 3> day_to_year(int d)
     assert(ret[0] >= 0);
     return ret;
 }
-};  // namespace date_converter
+
+// hour : minute : second
+int one_hour = 60, one_minute = 60;
+int time_to_second(int h, int m, int s)
+{
+    assert(m >= 0 && m < one_hour && s >= 0 && s < one_minute);
+    return (h * one_hour + m) * one_minute + s;
+}
+array<int, 3> second_to_time(int s)
+{
+    assert(s >= 0);
+    return {s / (one_minute * one_hour), s % (one_minute * one_hour) / one_hour, s % one_minute};
+}
+};  // namespace time_converter
