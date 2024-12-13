@@ -33,10 +33,16 @@ struct mod_int {
     constexpr mod_t operator-(const mod_t &va) const { return mod_t(*this) -= va; }
     constexpr mod_t operator*(const mod_t &va) const { return mod_t(*this) *= va; }
     constexpr mod_t operator/(const mod_t &va) const { return mod_t(*this) /= va; }
+    constexpr friend mod_t operator+(const int64_t iva, const mod_t &va) { return mod_t(iva) + va; }
+    constexpr friend mod_t operator-(const int64_t iva, const mod_t &va) { return mod_t(iva) - va; }
+    constexpr friend mod_t operator*(const int64_t iva, const mod_t &va) { return mod_t(iva) * va; }
+    constexpr friend mod_t operator/(const int64_t iva, const mod_t &va) { return mod_t(iva) / va; }
     constexpr bool operator==(const mod_t &va) const { return N == va.N; }
     constexpr bool operator!=(const mod_t &va) const { return N != va.N; }
     constexpr mod_t operator-() const { return mod_t() - mod_t(*this); }
     constexpr mod_t operator+() const { return mod_t(*this); }
+
+    constexpr operator int32_t() const { return int32_t(get()); }
 
     friend ostream &operator<<(ostream &os, const mod_t &va)
     {
