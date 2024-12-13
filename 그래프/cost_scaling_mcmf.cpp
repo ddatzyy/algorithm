@@ -1,5 +1,5 @@
 template <typename flow_t, typename cost_t, bool use_look_ahead = true>
-struct cost_scaling_mcmf {
+struct cost_scaling_mcmf {  // V^2ElogVC
     struct edge {
         int v, rev;
         flow_t flw;
