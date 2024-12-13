@@ -42,8 +42,6 @@ struct montgomery_mod_int {
     constexpr mod_t operator-() const { return mod_t() - mod_t(*this); }
     constexpr mod_t operator+() const { return mod_t(*this); }
 
-    constexpr operator int32_t() const { return int32_t(get()); }
-
     friend ostream &operator<<(ostream &os, const mod_t &va)
     {
         return os << va.get();
