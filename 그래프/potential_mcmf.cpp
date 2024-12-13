@@ -1,5 +1,5 @@
 template <typename flow_t, typename cost_t>
-struct potential_mcmf {
+struct potential_mcmf {  // ElogVf
     struct edge {
         int v, rev;
         flow_t flw;
