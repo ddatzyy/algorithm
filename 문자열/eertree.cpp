@@ -1,7 +1,6 @@
 /*
  * Author: ddatzyy
  * Date: 2024-12-14
- * Note: I'm so tired...
  */
 struct eertree {
     struct node {
@@ -98,7 +97,8 @@ struct eertree {
     // roll back eertree
     void pop()
     {
-        assert(cur_length > 0);
+        if (!cur_length)
+            return;
         cur_length--;
         int va = str.back();
         str.pop_back();
@@ -116,16 +116,18 @@ struct eertree {
         pop_rb.pop_back();
     }
 
+    int palindromic_length() { return min(plen.back()[0], plen.back()[1]); }
+
     bool k_factorization(int k = -1)
     {
-        if (k < 0) k = min(plen.back()[0], plen.back()[1]);
+        if (k < 0) k = palindromic_length();
         if (k > cur_length || k < plen[cur_length][k & 1]) return false;
         return true;
     }
 
     vector<int> get_k_factorization(int k = -1)
     {
-        if (k < 0) k = min(plen.back()[0], plen.back()[1]);
+        if (k < 0) k = palindromic_length();
         vector<int> ret;
         if (!k_factorization(k))
             return ret;
@@ -164,7 +166,7 @@ struct eertree {
 
     void print_k_factorization(int k = -1)
     {
-        if (k < 0) k = min(plen.back()[0], plen.back()[1]);
+        if (k < 0) k = palindromic_length();
         vector<int> ret = get_k_factorization(k);
         int n = 1;
         for (int i = 0; i < ret.size(); i++) {
