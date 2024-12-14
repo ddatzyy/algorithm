@@ -24,17 +24,16 @@ struct hopcroft_karp {
     {
         int u, loc, flow, cur_flow, q_begin, q_end;
         flow = 0;
-        vector<pii> lst(N + 2);  // {N} | - {0} - ... - {N - 1} - | {N + 1}
+        vector<pii> lst(N + 2);  // {N + 1} | - {0} - ... - {N - 1} - | {N}
         auto connect = [&](int x, int y) { lst[x].second = y, lst[y].first = x; };
-        connect(0, N), connect(N - 1, N + 1);
-        for (int i = 0; i < N - 1; i++)
-            connect(i, i + 1);
+        for (int i = 0; i <= N; i++)
+            connect((i + N + 1) % (N + 2), i);
         vector<int> last_rep(N);
         for (int rep = 1;; rep++) {
             cur_flow = 0;
             q_begin = 0, q_end = 0;
-            loc = lst[N].second;
-            while (loc < N + 1) {
+            loc = lst[N + 1].second;
+            while (loc != N) {
                 if (index_u[loc] == -1) {
                     que[q_end++] = dsj_set[loc] = prev_u[loc] = loc;
                     last_rep[loc] = rep;
