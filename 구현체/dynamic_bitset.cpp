@@ -1,6 +1,5 @@
-template <uint64_t N>
 struct dynamic_bitset {
-    dynamic_bitset()
+    dynamic_bitset(uint64_t _N) : N(_N)
     {
         arr.resize((N - 1) / 64 + 1, 0);
         if (N % 64 == 0)
@@ -76,21 +75,21 @@ struct dynamic_bitset {
         return *this;
     }
 
-    constexpr dynamic_bitset operator|(const dynamic_bitset& va) const { return dynamic_bitset(*this) |= va; }
-    constexpr dynamic_bitset operator&(const dynamic_bitset& va) const { return dynamic_bitset(*this) &= va; }
-    constexpr dynamic_bitset operator^(const dynamic_bitset& va) const { return dynamic_bitset(*this) ^= va; }
-    constexpr dynamic_bitset operator<<(const int& va) const { return dynamic_bitset(*this) <<= va; }
-    constexpr dynamic_bitset operator>>(const int& va) const { return dynamic_bitset(*this) >>= va; }
-    constexpr bool operator==(const dynamic_bitset& va) const
+    dynamic_bitset operator|(const dynamic_bitset& va) const { return dynamic_bitset(*this) |= va; }
+    dynamic_bitset operator&(const dynamic_bitset& va) const { return dynamic_bitset(*this) &= va; }
+    dynamic_bitset operator^(const dynamic_bitset& va) const { return dynamic_bitset(*this) ^= va; }
+    dynamic_bitset operator<<(const int& va) const { return dynamic_bitset(*this) <<= va; }
+    dynamic_bitset operator>>(const int& va) const { return dynamic_bitset(*this) >>= va; }
+    bool operator==(const dynamic_bitset& va) const
     {
         assert(size() == va.size());
         return equal(arr.begin(), arr.end(), va.arr.begin());
     }
-    constexpr bool operator!=(const dynamic_bitset& va) const { return !(*this == va); }
+    bool operator!=(const dynamic_bitset& va) const { return !(*this == va); }
 
     friend ostream& operator<<(ostream& os, const dynamic_bitset& va)
     {
-        for (int i = (N - 1) % 64; i >= 0; i--)
+        for (int i = (va.N - 1) % 64; i >= 0; i--)
             os << char('0' + ((va.arr.back() >> i) & 1));
         for (int i = va.arr.size() - 2; i >= 0; i--)
             for (int p = 63; p >= 0; p--)
@@ -157,7 +156,7 @@ struct dynamic_bitset {
 
    private:
     static constexpr uint64_t max64 = 0ULL - 1ULL;
-    uint64_t del_carry;
+    uint64_t N, del_carry;
 
     vector<uint64_t> arr;
 
