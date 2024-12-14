@@ -24,24 +24,22 @@ struct hopcroft_karp {
     {
         int u, loc, flow, cur_flow, q_begin, q_end;
         flow = 0;
-        vector<pii> linked_list(N + 2);
-        linked_list[0].first = N, linked_list[N - 1].second = N + 1;
-        linked_list[N].second = 0, linked_list[N + 1].first = N - 1;
+        vector<pii> lst(N + 2);  // {N} | - {0} - ... - {N - 1} - | {N + 1}
+        auto connect = [&](int x, int y) { lst[x].second = y, lst[y].first = x; };
+        connect(0, N), connect(N - 1, N + 1);
         for (int i = 0; i < N - 1; i++)
-            linked_list[i].second = i + 1;
-        for (int i = 1; i < N; i++)
-            linked_list[i].first = i - 1;
+            connect(i, i + 1);
         vector<int> last_rep(N);
         for (int rep = 1;; rep++) {
             cur_flow = 0;
             q_begin = 0, q_end = 0;
-            loc = linked_list[N].second;
+            loc = lst[N].second;
             while (loc < N + 1) {
                 if (index_u[loc] == -1) {
                     que[q_end++] = dsj_set[loc] = prev_u[loc] = loc;
                     last_rep[loc] = rep;
                 }
-                loc = linked_list[loc].second;
+                loc = lst[loc].second;
             }
             while (q_begin < q_end) {
                 u = que[q_begin++];
@@ -59,8 +57,7 @@ struct hopcroft_karp {
                             Update since index_u[u] matching is missing : {v} to {u} and {u} to previous vertex {prev_u[u]}
                             */
                         }
-                        linked_list[linked_list[u].first].second = linked_list[u].second;
-                        linked_list[linked_list[u].second].first = linked_list[u].first;
+                        connect(lst[u].first, lst[u].second);
                         cur_flow++;
                         break;
                     }
