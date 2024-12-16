@@ -68,7 +68,7 @@ struct biconnected_component {
                 if (dfn[ne] != 0)
                     ret = min(ret, dfn[ne]);
                 else {
-                    auto va = dfs(ne, lo);
+                    int va = dfs(ne, lo);
                     ret = min(ret, va);
                     if (va >= dfn[lo]) {
                         bcc.push_back({});
