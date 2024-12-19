@@ -20,11 +20,11 @@ struct hopcroft_karp {
     {
         return index_v[lo];
     }
-    int matching()
+    int max_matching()
     {
         int u, loc, flow, cur_flow, q_begin, q_end;
         flow = 0;
-        vector<pii> lst(N + 2);  // {N + 1} | - {0} - ... - {N - 1} - | {N}
+        vector<pair<int, int>> lst(N + 2, pair<int, int>(-1, -1));  // {N + 1} | - {0} - ... - {N - 1} - | {N}
         auto connect = [&](int x, int y) { lst[x].second = y, lst[y].first = x; };
         for (int i = 0; i <= N; i++)
             connect((i + N + 1) % (N + 2), i);
