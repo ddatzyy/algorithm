@@ -4,9 +4,9 @@ struct splay_tree {
         node *l, *r;
         int sz;
         bool flip;
-        value_t val, sum;
-        node() : l(nullptr), r(nullptr), sz(1), flip(false), val(0), sum(0) {}
-        node(value_t _val) : l(nullptr), r(nullptr), sz(1), flip(false), val(_val), sum(_val) {}
+        value_t val;
+        node() : l(nullptr), r(nullptr), sz(1), flip(false), val(0) {}
+        node(value_t _val) : l(nullptr), r(nullptr), sz(1), flip(false), val(_val) {}
     };
 
     splay_tree() : root(nullptr) {}
@@ -165,11 +165,13 @@ struct splay_tree {
     }
     void update(node *v)
     {
-        v->sz = 1, v->sum = v->val;
-        if (v->l)
-            v->sz += v->l->sz, v->sum += v->l->sum;
-        if (v->r)
-            v->sz += v->r->sz, v->sum += v->r->sum;
+        v->sz = 1;
+        if (v->l) {
+            v->sz += v->l->sz;
+        }
+        if (v->r) {
+            v->sz += v->r->sz;
+        }
     }
     void flip(node *v)
     {
