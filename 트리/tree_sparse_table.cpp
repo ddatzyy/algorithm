@@ -60,6 +60,11 @@ struct tree_sparse_table {  // 1-based tree
         // make new sparse table
         update_dfs(root, 0);
     }
+    cost_t get_distance(int u, int v)
+    {
+        int lo = longest_common_ancestor(u, v);
+        return dst[u] + dst[v] - dst[lo] * 2;
+    }
 
    private:
     int root, N, sp;
