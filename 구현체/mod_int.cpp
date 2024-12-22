@@ -25,7 +25,7 @@ struct mod_int {
 
     constexpr mod_t &operator/=(const mod_t &va)
     {
-        N = (N * va.inverse()) % MOD;
+        N = (N * va.inverse()).N % MOD;
         return *this;
     }
 
