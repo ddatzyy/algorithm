@@ -86,9 +86,10 @@ struct tree_sparse_table {  // 1-based tree
     }
     void dfs(int lo, int be, cost_t de)
     {
-        spt[lo][0] = be, nds[lo] = 1, dst[lo] = de, dep[lo] = dep[be] + 1;
+        spt[lo][0] = be;
         for (int i = 1; i < sp; i++)
             spt[lo][i] = spt[spt[lo][i - 1]][i - 1];
+        nds[lo] = 1, dst[lo] = de, dep[lo] = dep[be] + 1;
         for (auto [ne, dt] : grp[lo])
             if (norm_tree || ne != be) {
                 dfs(ne, lo, de + dt);
