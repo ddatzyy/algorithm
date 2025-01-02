@@ -1,5 +1,5 @@
 struct combination {
-    combination(ll _N, ll _md) : N(_N), md(_md)
+    combination(int64_t _N, int64_t _md) : N(_N), md(_md)
     {
         fac.resize(N);
         ifac.resize(N);
@@ -10,31 +10,31 @@ struct combination {
         for (int i = ifac.size() - 2; i > 0; i--)
             ifac[i] = ifac[i + 1] * (i + 1) % md;
     }
-    ll power(ll a, ll b)
+    int64_t power(int64_t a, int64_t b)
     {
-        ll ret = 1;
+        int64_t ret = 1;
         while (b) {
             if (b & 1) ret = ret * a % md;
             a = a * a % md, b >>= 1;
         }
         return ret;
     }
-    ll inverse(ll a)
+    int64_t inverse(int64_t a)
     {
         if (a > 0 && a < N) return ifac[a] * fac[a - 1] % md;
         return power(a, md - 2);
     }
-    ll nCr(ll a, ll b)
+    int64_t nCr(int64_t a, int64_t b)
     {
         assert(max(a, b) < N);
         if (a < b) return 0;
         return fac[a] * ifac[b] % md * ifac[a - b] % md;
     }
-    ll nHr(ll a, ll b) { return nCr(a + b - 1, b); }
-    ll factorial(ll a) { return fac[a]; };
-    ll inverse_factorial(ll a) { return ifac[a]; }
+    int64_t nHr(int64_t a, int64_t b) { return nCr(a + b - 1, b); }
+    int64_t factorial(int64_t a) { return fac[a]; };
+    int64_t inverse_factorial(int64_t a) { return ifac[a]; }
 
    private:
-    ll N, md;
-    vector<ll> fac, ifac;
+    int64_t N, md;
+    vector<int64_t> fac, ifac;
 };
