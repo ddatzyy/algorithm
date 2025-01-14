@@ -25,7 +25,7 @@ struct segment_tree {  // 0-based index, !!!you need to fill segment_tree_node::
     void insert(int lo, value_t va)
     {
         lo += N;
-        seg[lo] = va;
+        seg[lo].val = va;
         lo /= 2;
         while (lo > 0) {
             merge(seg[lo], seg[lo * 2], seg[lo * 2 + 1]);
@@ -36,6 +36,7 @@ struct segment_tree {  // 0-based index, !!!you need to fill segment_tree_node::
     {
         lo += N;
         seg[lo].update(va);
+        lo /= 2;
         while (lo > 0) {
             merge(seg[lo], seg[lo * 2], seg[lo * 2 + 1]);
             lo /= 2;
