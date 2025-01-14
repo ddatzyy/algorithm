@@ -1,5 +1,5 @@
+template <typename value_t>
 struct segment_tree {  // 0-based index, !!!you need to fill segment_tree_node::update(), find(), merge()!!!
-    using value_t = int;
     struct segment_tree_node {
         value_t val;
         segment_tree_node() : val(0) {}
