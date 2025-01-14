@@ -12,6 +12,11 @@ struct segment_tree {  // 0-based index, !!!you need to fill segment_tree_node::
             */
             assert(0);
         }
+
+        void clear()
+        {
+            val = 0;
+        }
     };
 
     segment_tree(int _N)
