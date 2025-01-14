@@ -1,12 +1,12 @@
 template <typename value_t>
 struct splay_tree {
-    struct node {
-        node *l, *r;
+    struct splay_tree_node {
+        splay_tree_node *l, *r;
         int sz;
         bool flip;
         value_t val;
-        node() : l(nullptr), r(nullptr), sz(1), flip(false), val(0) {}
-        node(value_t _val) : l(nullptr), r(nullptr), sz(1), flip(false), val(_val) {}
+        splay_tree_node() : l(nullptr), r(nullptr), sz(1), flip(false), val(0) {}
+        splay_tree_node(value_t _val) : l(nullptr), r(nullptr), sz(1), flip(false), val(_val) {}
     };
 
     splay_tree() : root(nullptr) {}
@@ -46,7 +46,7 @@ struct splay_tree {
     }
     void insert(int k, value_t va)
     {  // 0-index
-        node *tm = new node(va);
+        splay_tree_node *tm = new splay_tree_node(va);
         if (k == 0) {
             tm->r = root;
             root = tm;
@@ -71,14 +71,14 @@ struct splay_tree {
     int size() { return size(root); }
 
    private:
-    node *root;
+    splay_tree_node *root;
 
-    node *init(int l, int r, vector<value_t> &arr)
+    splay_tree_node *init(int l, int r, vector<value_t> &arr)
     {
         if (l >= r)
             return nullptr;
         int md = (l + r) / 2;
-        node *tm = new node(arr[md]);
+        splay_tree_node *tm = new splay_tree_node(arr[md]);
         if (md > l) tm->l = init(l, md, arr);
         if (md + 1 < r) tm->r = init(md + 1, r, arr);
         update(tm);
@@ -91,9 +91,9 @@ struct splay_tree {
      ↙   ↘                   ↙   ↘
     ll     lr                lr       r
     */
-    node *rotate_right(node *v)
+    splay_tree_node *rotate_right(splay_tree_node *v)
     {
-        node *tm = v->l;
+        splay_tree_node *tm = v->l;
         v->l = tm->r;
         tm->r = v;
         update(v), update(tm);
@@ -106,9 +106,9 @@ struct splay_tree {
          ↙   ↘            ↙   ↘
         rl     rr         l       rl
     */
-    node *rotate_left(node *v)
+    splay_tree_node *rotate_left(splay_tree_node *v)
     {
-        node *tm = v->r;
+        splay_tree_node *tm = v->r;
         v->r = tm->l;
         tm->l = v;
         update(v), update(tm);
@@ -116,11 +116,11 @@ struct splay_tree {
     }
     /*
            v
-        ↙   ↘       make k-th node in S to v (0-index)
+        ↙   ↘       make k-th splay_tree_node in S to v (0-index)
       ↙   S   ↘
     ↙___________↘
     */
-    node *splay(node *v, int k)
+    splay_tree_node *splay(splay_tree_node *v, int k)
     {
         push_down(v);
         int sz = v->l ? v->l->sz : 0;
@@ -141,7 +141,7 @@ struct splay_tree {
     merge l and r to    ↙   ↘
                       l       ...
     */
-    node *merge(node *l, node *r)
+    splay_tree_node *merge(splay_tree_node *l, splay_tree_node *r)
     {
         if (!l || !r) return !l ? r : l;
         r = splay(r, 0);
@@ -149,21 +149,21 @@ struct splay_tree {
         update(r);
         return r;
     }
-    // split {v} to {0 ~ (k-1)-th node, k-th node ~ end}
-    pair<node *, node *> split(node *v, int k)
+    // split {v} to {0 ~ (k-1)-th splay_tree_node, k-th splay_tree_node ~ end}
+    pair<splay_tree_node *, splay_tree_node *> split(splay_tree_node *v, int k)
     {
         if (k >= size(v)) return {v, nullptr};
         v = splay(v, k);
-        node *tm = v->l;
+        splay_tree_node *tm = v->l;
         v->l = nullptr;
         update(v);
         return {tm, v};
     }
-    int size(node *v)
+    int size(splay_tree_node *v)
     {
         return !v ? 0 : v->sz;
     }
-    void update(node *v)
+    void update(splay_tree_node *v)
     {
         v->sz = 1;
         if (v->l) {
@@ -173,14 +173,14 @@ struct splay_tree {
             v->sz += v->r->sz;
         }
     }
-    void flip(node *v)
+    void flip(splay_tree_node *v)
     {
         if (v) {
             swap(v->l, v->r);
             v->flip ^= true;
         }
     }
-    void push_down(node *v)
+    void push_down(splay_tree_node *v)
     {
         if (!v) return;
         if (v->flip) {
