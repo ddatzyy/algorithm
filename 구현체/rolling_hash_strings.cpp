@@ -51,6 +51,7 @@ struct rolling_hash_strings {
         return (hs[id][en] + div - hs[id][st - 1]) % div * pim[st - 1] % div;
     }
 
+    // if same return 1, else return 0
     bool compare(int id1, int st1, int en1, int id2, int st2, int en2)
     {
         return (en1 - st1 == en2 - st2) && (substr(id1, st1, en1) == substr(id2, st2, en2));
