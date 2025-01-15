@@ -24,7 +24,7 @@ struct rolling_hash_strings {
         auto& nhs = hs.back();
         nhs.push_back(0);
         for (const auto& ne : arr)
-            nhs.push_back((nhs.back() + ne * pm[nhs.size() - 1] % div) % div);
+            nhs.push_back((nhs.back() + (ne % div + div) * pm[nhs.size() - 1]) % div);
     }
     // 1-based index
     template <typename T>
@@ -34,11 +34,11 @@ struct rolling_hash_strings {
         auto& nhs = hs.back();
         nhs.push_back(0);
         for (const auto& ne : arr)
-            nhs.push_back((nhs.back() + ne * pm[nhs.size() - 1] % div) % div);
+            nhs.push_back((nhs.back() + (ne % div + div) * pm[nhs.size() - 1]) % div);
     }
     void push(int id, uint64_t va)
     {
-        hs[id].push_back((hs[id].back() + va * pm[hs[id].size()] % div) % div);
+        hs[id].push_back((hs[id].back() + (va % div + div) * pm[hs[id].size()]) % div);
     }
     void pop(int id)
     {
