@@ -13,7 +13,7 @@ struct rolling_hash_strings {
             _m = _m * _m % div, _d /= 2;
         }
         pm.push_back(1), pim.push_back(1);
-        for (int i = 1; i <= N; i++)
+        for (int i = 0; i < N; i++)
             pm.push_back(pm.back() * mul % div), pim.push_back(pim.back() * imul % div);
     }
     // 1-based index
