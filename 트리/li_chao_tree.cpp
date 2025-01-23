@@ -1,5 +1,5 @@
 template <typename coord_t>
-struct li_chao_tree {
+struct li_chao_tree {  // default : max
     struct line {
         coord_t a, b;
         line() : a(0), b(-COORD_INF) {}
@@ -21,7 +21,7 @@ struct li_chao_tree {
         node(int _lt, int _rt, line _lin) : lt(_lt), rt(_rt), lin(_lin) {}
     };
 
-    li_chao_tree(int _N, coord_t _rng) : N(_N)
+    li_chao_tree(int _N, coord_t _rng) : N(_N)  // N line, x range [-rng, rng]
     {
         int ri;
         rng = 1, ri = 2;
@@ -31,7 +31,7 @@ struct li_chao_tree {
         new_node_num = 0;
         root = new_node();
     }
-    void insert(coord_t a, coord_t b)
+    void insert(coord_t a, coord_t b)  // insert {y = ax + b}
     {
         line va(a, b);
         update(-rng, rng, root, va);
