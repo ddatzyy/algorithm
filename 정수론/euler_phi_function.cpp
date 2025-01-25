@@ -1,5 +1,6 @@
 // need miller_rabin_pollard_rho
 namespace euler_phi_function {
+// 𝜙(n) = |{k : 1 ≤ k ≤ n, gcd(n, k) = 1}|
 long long get_phi(long long va)
 {  // if gcd(a, b) = 1 -> a^k mod b = a^(k mod 𝜙(b)) mod b
     if (va == 1)
