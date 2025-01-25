@@ -1,4 +1,4 @@
-namespace pollard_rho {
+namespace miller_rabin_pollard_rho {
 bool miller_rabin(long long va, vector<long long> pri)
 {
     long long D, s, t, d, x;
@@ -102,4 +102,4 @@ vector<long long> factorize(long long va)
     sort(ret.begin(), ret.end());
     return ret;
 }
-}  // namespace pollard_rho
+}  // namespace miller_rabin_pollard_rho
