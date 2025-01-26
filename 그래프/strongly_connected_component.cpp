@@ -17,14 +17,14 @@ struct strongly_connected_component {
         dag_grp.resize(scc.size());
         vector<bool> vis(N), vig(scc.size());
         for (int i = 0; i < scc.size(); i++) {
-            for (auto ne : scc[i])
-                for (auto v : grp[ne])
+            for (auto u : scc[i])
+                for (auto v : grp[u])
                     vis[v] = 1, vig[idx[v]] = 1;
-            for (auto ne : scc[i])
-                vis[ne] = 0;
+            for (auto u : scc[i])
+                vis[u] = 0;
             vig[i] = 0;
-            for (auto ne : scc[i])
-                for (auto v : grp[ne])
+            for (auto u : scc[i])
+                for (auto v : grp[u])
                     if (vis[v] == 1) {
                         if (vig[idx[v]] == 1)
                             dag_grp[i].push_back(idx[v]);
