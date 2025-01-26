@@ -5,6 +5,7 @@ struct matrix {
     matrix(int _row, int _col, T _va) : row(_row), col(_col) { arr.resize(row, vector<T>(col, _va)); }
     matrix(vector<vector<T>> _arr) : row(_arr.size()), col(_arr.begin()->size()), arr(_arr) {}
     matrix(initializer_list<initializer_list<T>> _arr) : arr(_arr.begin(), _arr.end()), row(_arr.size()), col(_arr.begin()->size()) {}
+
     void identity()
     {
         assert(row == col);
@@ -30,6 +31,19 @@ struct matrix {
             va >>= 1;
         }
         return ret;
+    }
+
+    struct proxy_mt {
+        vector<T> &R;
+
+        proxy_mt(vector<T> &_R) : R(_R) {}
+
+        T &operator[](int c) { return R[c]; }
+    };
+
+    proxy_mt operator[](int rr)
+    {
+        return proxy_mt(arr[rr]);
     }
 
     constexpr matrix &operator+=(const matrix &va)
