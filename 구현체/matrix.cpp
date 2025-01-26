@@ -38,7 +38,7 @@ struct matrix {
 
         proxy_mt(vector<T> &_R) : R(_R) {}
 
-        T &operator[](int c) { return R[c]; }
+        T &operator[](int cc) { return R[cc]; }
     };
 
     proxy_mt operator[](int rr)
