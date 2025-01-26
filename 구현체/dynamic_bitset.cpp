@@ -24,7 +24,7 @@ struct dynamic_bitset {
             return *this;
         }
 
-        proxy_bit& operator=(const proxy_bit& va) { return *this = va; }
+        proxy_bit& operator=(const proxy_bit& va) { return *this = static_cast<bool>(va); }
     };
 
     bool operator[](int lo) const
