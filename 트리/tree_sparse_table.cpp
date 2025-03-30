@@ -36,6 +36,22 @@ struct tree_sparse_table {  // 1-based tree
                 u = spt[u][i], v = spt[v][i];
         return spt[u][0];
     }
+    int longest_common_ancestor(const vector<int>& nd)
+    {
+        assert(root > 0);
+        int ret = nd[0];
+        for (int i = 1; i < nd.size(); i++)
+            ret = longest_common_ancestor(ret, nd[i]);
+        return ret;
+    }
+    int longest_common_ancestor(const vector<int>& nd)
+    {
+        assert(root > 0);
+        int ret = nd[0];
+        for (int i = 1; i < nd.size(); i++)
+            ret = longest_common_ancestor(ret, nd[i]);
+        return ret;
+    }
     int go_up_index(int lo, int va)
     {
         assert(root > 0);
