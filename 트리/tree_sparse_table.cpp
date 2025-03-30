@@ -44,7 +44,7 @@ struct tree_sparse_table {  // 1-based tree
             ret = longest_common_ancestor(ret, nd[i]);
         return ret;
     }
-    int longest_common_ancestor(const vector<int>& nd)
+    int longest_common_ancestor(const vector<long long>& nd)
     {
         assert(root > 0);
         int ret = nd[0];
