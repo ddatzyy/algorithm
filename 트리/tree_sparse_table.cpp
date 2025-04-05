@@ -21,7 +21,7 @@ struct tree_sparse_table {  // 1-based tree
             normalize_tree(root, 0);
         dfs(root, 0, 0);
     }
-    int longest_common_ancestor(int u, int v)
+    int get_lca(int u, int v)
     {
         assert(root > 0);
         if (dep[u] < dep[v])
@@ -36,20 +36,20 @@ struct tree_sparse_table {  // 1-based tree
                 u = spt[u][i], v = spt[v][i];
         return spt[u][0];
     }
-    int longest_common_ancestor(const vector<int>& nd)
+    int get_lca(const vector<int>& nd)
     {
         assert(root > 0);
         int ret = nd[0];
         for (int i = 1; i < nd.size(); i++)
-            ret = longest_common_ancestor(ret, nd[i]);
+            ret = get_lca(ret, nd[i]);
         return ret;
     }
-    int longest_common_ancestor(const vector<long long>& nd)
+    int get_lca(const vector<long long>& nd)
     {
         assert(root > 0);
         int ret = nd[0];
         for (int i = 1; i < nd.size(); i++)
-            ret = longest_common_ancestor(ret, nd[i]);
+            ret = get_lca(ret, nd[i]);
         return ret;
     }
     int go_up_index(int lo, int va)
@@ -72,7 +72,7 @@ struct tree_sparse_table {  // 1-based tree
     }
     cost_t get_distance(int u, int v)
     {
-        int lo = longest_common_ancestor(u, v);
+        int lo = get_lca(u, v);
         return dst[u] + dst[v] - dst[lo] * 2;
     }
 
